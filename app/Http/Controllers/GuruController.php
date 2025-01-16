@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use App\Models\Siswa;
+use App\Models\Guru;
 use Illuminate\Support\Facades\Log;
 
-
-class SiswaController extends Controller
+class GuruController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,21 +15,19 @@ class SiswaController extends Controller
     public function index(Request $request)
     {
 
-        $students = Siswa::when($request->search, function ($query, $search) {
+        $gurus = Guru::when($request->search, function ($query, $search) {
             $query->where('kelas', 'like', '%' . $search . '%');
         })->paginate(5);
 
-        return Inertia::render('frontend/Siswa/index', ['students' => $students]);
+        return Inertia::render('frontend/Guru/Index', ['gurus' => $gurus]);
     }
-
-
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return Inertia::render('frontend/Siswa/Create');
+        return Inertia::render('frontend/Guru/Create');
     }
 
     /**
@@ -40,56 +37,58 @@ class SiswaController extends Controller
     {
         Log::debug("terpangil");
         $request->validate([
-            'name' => 'required',
+            'guru' => 'required',
             'kelas'=> 'required',
         ]);
-        Siswa::create([
-            'name'=> $request->name,
+        Guru::create([
+            'guru'=> $request->guru,
             'kelas'=> $request->kelas,
 
         ]);
-        return redirect()->to('/siswa')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->to('/guru')->with('success', 'Data berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Siswa $siswa)
+    public function show(string $id)
     {
-        return Inertia::render('frontend/Siswa/Show',['siswa'=> $siswa]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Siswa $siswa)
+    public function edit(Guru $guru)
     {
-        return Inertia::render('frontend/Siswa/Edit',['siswa'=> $siswa]);
+        log::debug($guru);
+        return Inertia::render('frontend/Guru/Edit',['guru'=> $guru]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Siswa $siswa)
+    public function update(Request $request, Guru $guru)
     {
         Log::debug("terpangil");
+        log::debug($guru);
         $request->validate([
-            'name' => 'required',
+            'guru' => 'required',
             'kelas'=> 'required',
         ]);
-        $siswa->update([
-            'name'=> $request->name,
+        $guru->update([
+            'guru'=> $request->guru,
             'kelas'=> $request->kelas,
         ]);
-        return redirect()->to('/siswa')->with('success', 'Data berhasil di ubah');
+        return redirect()->to('/Guru')->with('success', 'Data berhasil di ubah');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Siswa $siswa)
+    public function destroy(Guru $guru)
     {
-        $siswa->delete();
-        return redirect()->to('/siswa')->with('success','Data berhasil di hapus');
+        $guru->delete();
+        return redirect()->to('/guru')->with('success','Data berhasil di hapus');
     }
 }

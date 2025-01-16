@@ -1,5 +1,5 @@
 <template>
-  <Head title="Student Page" />
+  <Head title="Teachers Page" />
   <FrontendLayout>
     <div
       v-if="$page.props.flash.success"
@@ -25,10 +25,10 @@
           </select>
         </div>
         <Link
-          :href="route('siswa.create')"
+          :href="route('guru.create')"
           class="bg-blue-500 text-white p-3 rounded"
         >
-          Add Student
+          Add Teacher
         </Link>
       </div>
 
@@ -36,25 +36,19 @@
         <thead>
           <tr>
             <th class="py-2 px-4 text-left border">Id</th>
-            <th class="py-2 px-4 text-left border">Name</th>
+            <th class="py-2 px-4 text-left border">Teacher</th>
             <th class="py-2 px-4 text-left border">Class</th>
             <th class="py-2 px-4 text-left border">Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in students.data" :key="index">
+          <tr v-for="(item, index) in gurus.data" :key="index">
             <td class="py-2 px-4 text-left border">{{ item.id }}</td>
-            <td class="py-2 px-4 text-left border">{{ item.name }}</td>
+            <td class="py-2 px-4 text-left border">{{ item.guru }}</td>
             <td class="py-2 px-4 text-left border">{{ item.kelas }}</td>
             <td class="py-2 px-4 text-left border">
-              <!-- <Link
-                :href="route('siswa.show', item.id)"
-                class="px-2 text-sm bg-blue-300 text-dark rounded"
-              >
-                Show
-              </Link> -->
               <Link
-                :href="route('siswa.edit', item.id)"
+                :href="route('guru.edit', item.id)"
                 class="px-2 text-sm bg-green-500 text-white rounded"
               >
                 Edit
@@ -62,7 +56,7 @@
               <button
                 type="button"
                 class="px-2 text-sm bg-red-600 text-white rounded"
-                @click="deleteStudent(item.id)"
+                @click="deleteGuru(item.id)"
               >
                 Delete
               </button>
@@ -71,37 +65,37 @@
         </tbody>
       </table>
 
-      <Pagination class="mt-4" :links="students.links" />
+      <Pagination class="mt-4" :links="gurus.links" />
     </div>
   </FrontendLayout>
 </template>
 
-  <script setup>
+    <script setup>
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import { Inertia } from "@inertiajs/inertia";
 import Pagination from "@/Components/Pagination.vue";
 import { ref } from "vue";
 
-defineProps({ students: Object });
+defineProps({ gurus: Object });
 
 let search = ref("");
 
 const applyFilter = () => {
   Inertia.get(
-    route("siswa.index"),
+    route("guru.index"),
     { search: search.value },
     { preserveState: true }
   );
 };
 
 const form = useForm({});
-const deleteStudent = (studentId) => {
-  if (confirm("Are you sure to delete this student?")) {
-    form.delete(route("siswa.destroy", studentId));
+const deleteGuru = (guruId) => {
+  if (confirm("Are you sure to delete this teacher?")) {
+    form.delete(route("guru.destroy", guruId));
   }
 };
 </script>
 
-  <style>
+    <style>
 </style>

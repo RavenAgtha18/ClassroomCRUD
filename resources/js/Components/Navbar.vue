@@ -13,7 +13,7 @@
           <Link :href="route('kelas.index')" class="nav-link">Kelas</Link>
         </li>
         <li class="nav-item">
-          <Link :href="route('siswa.index')" class="nav-link">Guru</Link>
+          <Link :href="route('guru.index')" class="nav-link">Guru</Link>
         </li>
         <Dropdown align="right" width="50">
           <template #trigger>

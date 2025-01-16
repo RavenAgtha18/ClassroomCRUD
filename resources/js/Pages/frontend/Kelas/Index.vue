@@ -30,11 +30,11 @@
             <td class="py-2 px-4 text-left border">{{ item.id }}</td>
             <td class="py-2 px-4 text-left border">{{ item.kelas }}</td>
             <td class="py-2 px-4 text-left border">
-              <Link
+              <!-- <Link
                 :href="route('kelas.show', item.id)"
                 class="px-2 oy-1text-sm bg-blue-300 text-dark me-2 rounded inline-block"
                 >show</Link
-              >
+              > -->
               <Link
                 :href="route('kelas.edit', item.id)"
                 class="px-2 oy-1text-sm bg-green-500 text-white me-2 rounded inline-block"

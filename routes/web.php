@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KelasController;
+use App\Http\Controllers\GuruController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -17,6 +18,7 @@ Route::get('/students', [FrontendController::class, 'students'])->name('students
 route::middleware('auth')->group(function(){
     route::resource('siswa', SiswaController::class);
     route::resource('kelas', KelasController::class);
+    route::resource('guru', GuruController::class);
 });
 
 Route::get('/dashboard', function () {
