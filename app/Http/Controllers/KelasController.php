@@ -64,9 +64,17 @@ class KelasController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Kelas $kela)
     {
-        //
+        $request->validate([
+
+            'kelas'=> 'required',
+        ]);
+        $kela->update([
+
+            'kelas'=> $request->kelas,
+        ]);
+        return redirect()->to('/kelas')->with('success', 'Data berhasil di ubah');
     }
 
     /**

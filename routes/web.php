@@ -5,6 +5,9 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\GuruController;
+use App\Http\Controllers\ListController;
+use App\Http\Controllers\StudentListController;
+use App\Http\Controllers\TeacherListController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,6 +22,9 @@ route::middleware('auth')->group(function(){
     route::resource('siswa', SiswaController::class);
     route::resource('kelas', KelasController::class);
     route::resource('guru', GuruController::class);
+    route::resource('list', ListController::class);
+    route::resource('studentList', StudentListController::class);
+    route::resource('teacherList', TeacherListController::class);
 });
 
 Route::get('/dashboard', function () {

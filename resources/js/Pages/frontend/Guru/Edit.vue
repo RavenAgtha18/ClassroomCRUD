@@ -30,14 +30,22 @@
               </div>
             </div>
             <div class="mb-4">
-              <label class="block text-sm font-medium text-gray-700"
-                >Class</label
+              <label
+                for="kelas"
+                class="block text-sm font-medium text-gray-700"
               >
-              <input
-                type="text"
+                Class
+              </label>
+              <select
+                id="kelas"
                 v-model="form.kelas"
                 class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
-              />
+              >
+                <option value="">--Select Class--</option>
+                <option v-for="k in kelas" :key="k.id" :value="k.kelas">
+                  {{ k.kelas }}
+                </option>
+              </select>
               <div v-if="errors.kelas" class="text-red-500">
                 {{ errors.kelas }}
               </div>
@@ -59,7 +67,7 @@
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 
-const props = defineProps({ errors: Object, guru: Object });
+const props = defineProps({ errors: Object, guru: Object, kelas: Array });
 const form = useForm({
   guru: props.guru.guru,
   kelas: props.guru.kelas,

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Siswa;
+use App\Models\Kelas;
 use Illuminate\Support\Facades\Log;
 
 
@@ -30,7 +31,13 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        return Inertia::render('frontend/Siswa/Create');
+
+        $kelas = Kelas::all();
+
+
+        return Inertia::render('frontend/Siswa/Create', [
+            'kelas' => $kelas,
+        ]);
     }
 
     /**
@@ -64,7 +71,9 @@ class SiswaController extends Controller
      */
     public function edit(Siswa $siswa)
     {
-        return Inertia::render('frontend/Siswa/Edit',['siswa'=> $siswa]);
+
+        $kelas = Kelas::all();
+        return Inertia::render('frontend/Siswa/Edit',['siswa'=> $siswa, 'kelas'=> $kelas]);
     }
 
     /**

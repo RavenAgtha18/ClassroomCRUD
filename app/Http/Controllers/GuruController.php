@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Guru;
+use App\Models\Kelas;
 use Illuminate\Support\Facades\Log;
 
 class GuruController extends Controller
@@ -27,7 +28,8 @@ class GuruController extends Controller
      */
     public function create()
     {
-        return Inertia::render('frontend/Guru/Create');
+        $kelas = Kelas::all();
+        return Inertia::render('frontend/Guru/Create', ['kelas' => $kelas]);
     }
 
     /**
@@ -61,8 +63,11 @@ class GuruController extends Controller
      */
     public function edit(Guru $guru)
     {
+        $kelas = Kelas::all();
         log::debug($guru);
-        return Inertia::render('frontend/Guru/Edit',['guru'=> $guru]);
+        return Inertia::render('frontend/Guru/Edit',['guru'=> $guru, 'kelas'=> $kelas]);
+
+
     }
 
     /**
@@ -80,7 +85,7 @@ class GuruController extends Controller
             'guru'=> $request->guru,
             'kelas'=> $request->kelas,
         ]);
-        return redirect()->to('/Guru')->with('success', 'Data berhasil di ubah');
+        return redirect()->to('/guru')->with('success', 'Data berhasil di ubah');
     }
 
     /**

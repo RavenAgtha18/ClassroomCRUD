@@ -7,13 +7,28 @@
           <Link :href="route('home')" class="nav-link">Home</Link>
         </li> -->
         <li class="nav-item">
-          <Link :href="route('siswa.index')" class="nav-link">Siswa</Link>
+          <Link :href="route('list.index')" class="nav-link"
+            >Student & Teacher List</Link
+          >
         </li>
         <li class="nav-item">
-          <Link :href="route('kelas.index')" class="nav-link">Kelas</Link>
+          <Link :href="route('studentList.index')" class="nav-link"
+            >Student List</Link
+          >
         </li>
         <li class="nav-item">
-          <Link :href="route('guru.index')" class="nav-link">Guru</Link>
+          <Link :href="route('teacherList.index')" class="nav-link"
+            >Teacher List</Link
+          >
+        </li>
+        <li class="nav-item">
+          <Link :href="route('siswa.index')" class="nav-link">Student</Link>
+        </li>
+        <li class="nav-item">
+          <Link :href="route('kelas.index')" class="nav-link">Class</Link>
+        </li>
+        <li class="nav-item">
+          <Link :href="route('guru.index')" class="nav-link">Teacher</Link>
         </li>
         <Dropdown align="right" width="50">
           <template #trigger>
