@@ -38,6 +38,7 @@
             <th class="py-2 px-4 text-left border">Id</th>
             <th class="py-2 px-4 text-left border">Name</th>
             <th class="py-2 px-4 text-left border">Class</th>
+            <th class="py-2 px-4 text-left border">Parent</th>
             <th class="py-2 px-4 text-left border">Action</th>
           </tr>
         </thead>
@@ -46,6 +47,9 @@
             <td class="py-2 px-4 text-left border">{{ item.id }}</td>
             <td class="py-2 px-4 text-left border">{{ item.name }}</td>
             <td class="py-2 px-4 text-left border">{{ item.kelas }}</td>
+            <td class="py-2 px-4 text-left border">
+              {{ item.orang_tua.name }}
+            </td>
             <td class="py-2 px-4 text-left border">
               <!-- <Link
                 :href="route('siswa.show', item.id)"
@@ -83,7 +87,11 @@ import { Inertia } from "@inertiajs/inertia";
 import Pagination from "@/Components/Pagination.vue";
 import { ref } from "vue";
 
-defineProps({ students: Object });
+const props = defineProps({
+  students: Array,
+});
+
+console.log("Students:", props.students);
 
 let search = ref("");
 

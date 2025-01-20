@@ -7,6 +7,9 @@
           <Link :href="route('home')" class="nav-link">Home</Link>
         </li> -->
         <li class="nav-item">
+          <Link :href="route('orangTua.index')" class="nav-link">Parent</Link>
+        </li>
+        <li class="nav-item">
           <Link :href="route('list.index')" class="nav-link"
             >Student & Teacher List</Link
           >

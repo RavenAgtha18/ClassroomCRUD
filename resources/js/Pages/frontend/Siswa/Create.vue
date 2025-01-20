@@ -60,6 +60,27 @@
                 {{ errors.kelas }}
               </div>
             </div>
+            <div class="mb-4">
+              <label
+                for="kelas"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Class
+              </label>
+              <select
+                id="kelas"
+                v-model="form.orangTua"
+                class="mt-1 block w-full rounded border-gray-300 shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50"
+              >
+                <option value="">--Select Parent--</option>
+                <option v-for="k in orangTua" :key="k.id" :value="k.id">
+                  {{ k.name }}
+                </option>
+              </select>
+              <div v-if="errors.kelas" class="text-red-500">
+                {{ errors.kelas }}
+              </div>
+            </div>
             <button
               type="submit"
               class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50"
@@ -77,10 +98,12 @@
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import FrontendLayout from "@/Layouts/FrontendLayout.vue";
 
-defineProps({ errors: Object, kelas: Array });
+const props = defineProps({ errors: Object, orangTua: Array, kelas: Array });
+console.log("Students:", props.orangTua);
 const form = useForm({
   name: "",
   kelas: "",
+  orangTua: "",
 });
 const saveStudent = () => {
   console.log("Saving student");

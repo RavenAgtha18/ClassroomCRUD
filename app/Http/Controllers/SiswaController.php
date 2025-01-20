@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Siswa;
 use App\Models\Kelas;
+use App\Models\OrangTua;
 use Illuminate\Support\Facades\Log;
 
 
@@ -17,11 +18,16 @@ class SiswaController extends Controller
     public function index(Request $request)
     {
 
-        $students = Siswa::when($request->search, function ($query, $search) {
-            $query->where('kelas', 'like', '%' . $search . '%');
-        })->paginate(5);
+        $students = Siswa::with('orangTua')
+            ->when($request->search, function ($query, $search) {
+                $query->where('kelas', 'like', '%' . $search . '%');
+            })
+            ->paginate(5);
 
-        return Inertia::render('frontend/Siswa/index', ['students' => $students]);
+        return Inertia::render('frontend/Siswa/index', [
+            'students' => $students,
+            'search' => $request->search,
+        ]);
     }
 
 
@@ -33,10 +39,12 @@ class SiswaController extends Controller
     {
 
         $kelas = Kelas::all();
+        $orangTua = OrangTua::all();
 
 
         return Inertia::render('frontend/Siswa/Create', [
             'kelas' => $kelas,
+            'orangTua' => $orangTua,
         ]);
     }
 
@@ -45,14 +53,16 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        Log::debug("terpangil");
+        Log::debug($request->all());
         $request->validate([
             'name' => 'required',
             'kelas'=> 'required',
+            'orangTua'=> 'required',
         ]);
         Siswa::create([
             'name'=> $request->name,
             'kelas'=> $request->kelas,
+            'orang_tua_id' => $request->orangTua,
 
         ]);
         return redirect()->to('/siswa')->with('success', 'Data berhasil ditambahkan');
@@ -73,7 +83,8 @@ class SiswaController extends Controller
     {
 
         $kelas = Kelas::all();
-        return Inertia::render('frontend/Siswa/Edit',['siswa'=> $siswa, 'kelas'=> $kelas]);
+        $orangTua = OrangTua::all();
+        return Inertia::render('frontend/Siswa/Edit',['siswa'=> $siswa, 'kelas'=> $kelas, 'orangTua'=> $orangTua]);
     }
 
     /**
@@ -85,10 +96,12 @@ class SiswaController extends Controller
         $request->validate([
             'name' => 'required',
             'kelas'=> 'required',
+            'orangTua'=> 'required',
         ]);
         $siswa->update([
             'name'=> $request->name,
             'kelas'=> $request->kelas,
+            'orang_tua_id' => $request->orangTua,
         ]);
         return redirect()->to('/siswa')->with('success', 'Data berhasil di ubah');
     }
